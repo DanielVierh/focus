@@ -5,7 +5,8 @@ const timers = document.getElementById('timers');
 let save_object = {
     main_timer: 0,
     sub_timers: [],
-    theme: 'light'
+    theme: 'light',
+    active_timer: -1
 };
 class Timer {
     constructor(title, elapsed_time) {
@@ -20,8 +21,10 @@ function init() {
 init();
 btn_new_timer === null || btn_new_timer === void 0 ? void 0 : btn_new_timer.addEventListener('click', () => {
     if (inp_timer_title.value !== '') {
-        console.log(inp_timer_title.value);
+        timers.innerHTML = '';
+        save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
+        render_timer();
     }
 });
 function render_timer() {

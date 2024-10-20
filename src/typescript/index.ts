@@ -5,13 +5,15 @@ const timers = (<HTMLInputElement>document.getElementById('timers'))
 type SAVE_OBJECT = {
     main_timer: number,
     sub_timers: Timer[],
-    theme: string
+    theme: string,
+    active_timer: number
 }
 
 let save_object: SAVE_OBJECT = {
     main_timer: 0,
     sub_timers: [],
-    theme: 'light'
+    theme: 'light',
+    active_timer: -1
 }
 
 class Timer {
@@ -34,9 +36,10 @@ init();
 
 btn_new_timer?.addEventListener('click', ()=> {
     if(inp_timer_title.value !== '' ) {
-        console.log(inp_timer_title.value);
-        
+        timers.innerHTML = '';
+        save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
+        render_timer();
     }
 });
 
@@ -46,6 +49,7 @@ function render_timer(): void {
         
         let timer_div = document.createElement('div');
         timer_div.classList.add('focus-timer');
+        //TODO - Add event listener for click to focus timer
 
         let timer_title = document.createElement('div');
         timer_title.classList.add('label');
@@ -54,6 +58,8 @@ function render_timer(): void {
         let timer_time = document.createElement('div');
         timer_time.classList.add('timer');
         timer_time.innerHTML = convert_seconds_to_time(timer.elapsed_time);
+
+        //TODO - Add delete btn with functionality
 
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
@@ -75,21 +81,7 @@ function convert_seconds_to_time(seconds: number): string {
 }
 
 
-function minutesDiff(dateTimeValue2: Date, dateTimeValue1: Date) {
-    var differenceValue = (dateTimeValue2.getTime() - dateTimeValue1.getTime()) / 1000;
-    differenceValue /= 60;
-
-    const rawMinuteTime = Math.abs(Math.round(differenceValue));
-    const days = Math.floor(rawMinuteTime / (24 * 60));
-    const remainingMinutes = rawMinuteTime % (24 * 60);
-    const hours = Math.floor(remainingMinutes / 60);
-    const minutes = remainingMinutes % 60;
-
-    const time = `Tage: ${add_zero(days)} \n Stunden: ${add_zero(hours)} \n Minuten: ${add_zero(minutes)}`;
-    return time;
-}
-
-function add_zero(val: number) {
+function add_zero(val: number): string {
     let returnVal: string = '';
     if (val < 10) {
         returnVal = `0${val}`;
