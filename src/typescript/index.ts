@@ -1,37 +1,30 @@
-console.log('Hello World')
+const btn_new_timer = document.getElementById('btn_new_timer')!;
+const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_title'))
 
-let age: number = 20;
-if (age < 50) {
-    age += 10;
-    console.log(age);
+type SAVE_OBJECT = {
+    main_timer: number,
+    sub_timers: Timer[]
 }
 
-// Tuple
-let user: [number, string] = [1, 'Mosh'];
-
-// Enums
-enum Size {Small, Medium, Large}
-
-// Objects
-type Employee = {
-    readonly id: number, 
-    name: string,
-    retire: (date: Date) => void
+let save_object: SAVE_OBJECT = {
+    main_timer: 0,
+    sub_timers: []
 }
 
-let employee: Employee = {
-    id: 1, 
-    name: 'Max', 
-    retire: (date: Date) => {
-        console.log(date);
+class Timer {
+    title: string
+    elapsed_time: number
+    constructor(title: string, elapsed_time: number) {
+        this.title = title;
+        this.elapsed_time = elapsed_time;
     }
 }
 
-// Union 
-function kgToLbs(weight: number | string): number {
-    if(typeof weight === 'number') {
-        return weight * 2.2;
-    }else {
-       return parseInt(weight) * 2.2;
+
+btn_new_timer?.addEventListener('click', ()=> {
+    
+    if(inp_timer_title.value !== null) {
+        console.log(inp_timer_title.value);
+        
     }
-}
+})

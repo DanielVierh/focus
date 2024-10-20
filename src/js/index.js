@@ -1,30 +1,19 @@
 "use strict";
-console.log('Hello World');
-let age = 20;
-if (age < 50) {
-    age += 10;
-    console.log(age);
-}
-let user = [1, 'Mosh'];
-var Size;
-(function (Size) {
-    Size[Size["Small"] = 0] = "Small";
-    Size[Size["Medium"] = 1] = "Medium";
-    Size[Size["Large"] = 2] = "Large";
-})(Size || (Size = {}));
-let employee = {
-    id: 1,
-    name: 'Max',
-    retire: (date) => {
-        console.log(date);
-    }
+const btn_new_timer = document.getElementById('btn_new_timer');
+const inp_timer_title = document.getElementById('inp_timer_title');
+let save_object = {
+    main_timer: 0,
+    sub_timers: []
 };
-function kgToLbs(weight) {
-    if (typeof weight === 'number') {
-        return weight * 2.2;
-    }
-    else {
-        return parseInt(weight) * 2.2;
+class Timer {
+    constructor(title, elapsed_time) {
+        this.title = title;
+        this.elapsed_time = elapsed_time;
     }
 }
+btn_new_timer === null || btn_new_timer === void 0 ? void 0 : btn_new_timer.addEventListener('click', () => {
+    if (inp_timer_title.value !== null) {
+        console.log(inp_timer_title.value);
+    }
+});
 //# sourceMappingURL=index.js.map

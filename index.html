@@ -4,30 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focus</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="src/scss/styles.css">
 </head>
 <body>
     
     <h2>Focus</h2>
 
-    <div class="wrapper">
-        <div class="main-timer">04:45:01</div>
+    <div class="timer-wrapper">
+        <div class="main-timer">00:00:00</div>
         <div id="tasks">
-            <div class="fokus-timer">
-                <div class="label">Task 1</div>
-                <div class="timer">00:45:01</div>
+            <div class="focus-timer">
+                <div class="label">Test 1</div>
+                <div class="timer">00:00:00</div>
             </div>
-            <div class="fokus-timer">
-                <div class="label">Recherche</div>
-                <div class="timer">00:02:32</div>
-            </div>
-            <div class="fokus-timer">
-                <div class="label">Projekt 1</div>
-                <div class="timer">02:56:54</div>
-            </div>
-            <div class="fokus-timer">
-                <div class="label">Projekt 2</div>
-                <div class="timer">00:41:32</div>
+            <div class="focus-add">
+                <input type="text" placeholder="Neuen Fokus hinzufügen" id="inp_timer_title">
+                <input type="submit" id="btn_new_timer" value="Speichern">
             </div>
         </div>
     </div>
