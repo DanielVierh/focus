@@ -3,12 +3,14 @@ const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_ti
 
 type SAVE_OBJECT = {
     main_timer: number,
-    sub_timers: Timer[]
+    sub_timers: Timer[],
+    theme: string
 }
 
 let save_object: SAVE_OBJECT = {
     main_timer: 0,
-    sub_timers: []
+    sub_timers: [],
+    theme: 'light'
 }
 
 class Timer {
@@ -20,11 +22,18 @@ class Timer {
     }
 }
 
+save_object.sub_timers.push(new Timer('Test Timer', 200));
+
 
 btn_new_timer?.addEventListener('click', ()=> {
-    
-    if(inp_timer_title.value !== null) {
+    if(inp_timer_title.value !== '' ) {
         console.log(inp_timer_title.value);
         
+        inp_timer_title.value = '';
     }
-})
+});
+
+
+function render_timer(): void {
+    
+}
