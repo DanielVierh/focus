@@ -20,6 +20,7 @@ body {
     .main-timer {
         border: 1px solid black;
         font-size: 3rem;
+        padding: 0 10px;
     }
 
     .focus-timer {
@@ -27,6 +28,7 @@ body {
         display: flex;
         justify-content: space-between;
         font-size: 2rem;
+        padding: 0 10px;
     }
 
     .focus-add {
@@ -34,11 +36,17 @@ body {
         justify-content: space-between;
         align-items: center;
         min-height: 40px;
+        
 
         input {
             width: 80%;
             height: 100%;
             min-height: 40px;
+            padding: 0 10px;
+        }
+
+        #btn_new_timer {
+            cursor: pointer;
         }
     }
 }
