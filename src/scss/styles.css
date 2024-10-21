@@ -13,7 +13,7 @@ body {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   max-width: 600px;
   margin: 50px auto;
 }
@@ -21,13 +21,29 @@ body {
   border: 1px solid black;
   font-size: 3rem;
   padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .timer-wrapper .focus-timer {
   border: 1px solid black;
   display: flex;
   justify-content: space-between;
-  font-size: 2rem;
-  padding: 0 10px;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 0 0 0 10px;
+  cursor: pointer;
+}
+.timer-wrapper .focus-timer.active {
+  background-color: lightgreen;
+}
+.timer-wrapper .delete-button {
+  border: 1px solid black;
+  height: 27px;
+  width: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .timer-wrapper .focus-add {
   display: flex;

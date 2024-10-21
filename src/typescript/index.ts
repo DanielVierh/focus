@@ -1,6 +1,9 @@
 const btn_new_timer = document.getElementById('btn_new_timer')!;
+const btn_play_pause = document.getElementById('btn_play_pause')!;
 const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_title'))
-const timers = (<HTMLInputElement>document.getElementById('timers'))
+const timers = (<HTMLInputElement>document.getElementById('timers'));
+let timer: any;
+let is_timer_running: boolean = false;
 
 type SAVE_OBJECT = {
     main_timer: number,
@@ -27,8 +30,9 @@ class Timer {
 
 
 function init(): void {
-    save_object.sub_timers.push(new Timer('Test Timer', 60));
+    // save_object.sub_timers.push(new Timer('Test Timer', 60));
     render_timer();
+    show_active();
 }
 
 init();
@@ -45,11 +49,15 @@ btn_new_timer?.addEventListener('click', ()=> {
 
 
 function render_timer(): void {
-    save_object.sub_timers.forEach((timer)=> {
-        
+    save_object.sub_timers.forEach((timer, index)=> {
+        index++;
         let timer_div = document.createElement('div');
         timer_div.classList.add('focus-timer');
-        //TODO - Add event listener for click to focus timer
+        timer_div.addEventListener('click', ()=> {
+            save_object.active_timer = index;
+            remove_active_class();
+            timer_div.classList.add('active');
+        });
 
         let timer_title = document.createElement('div');
         timer_title.classList.add('label');
@@ -60,15 +68,40 @@ function render_timer(): void {
         timer_time.innerHTML = convert_seconds_to_time(timer.elapsed_time);
 
         //TODO - Add delete btn with functionality
+        let delete_btn = document.createElement('div');
+        delete_btn.classList.add('delete-button');
+        delete_btn.innerHTML = 'x';
+        delete_btn.addEventListener('click', ()=> {
+            console.log(index);
+            
+        })
 
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
+        timer_div.appendChild(delete_btn);
 
         timers.appendChild(timer_div);
 
     })
 }
 
+function remove_active_class():void {
+   const timers =  document.querySelectorAll('.focus-timer');
+    timers.forEach((timer)=> {
+        timer.classList.remove('active');
+    })
+}
+
+function show_active():void {
+    const timers =  document.querySelectorAll('.focus-timer');
+    try {
+        timers[save_object.active_timer].classList.add('active')
+    } catch (error) {
+        console.log(error);
+        
+    }
+
+}
 
 function convert_seconds_to_time(seconds: number): string {
 
@@ -90,3 +123,32 @@ function add_zero(val: number): string {
     }
     return returnVal;
 }
+
+
+btn_play_pause.addEventListener('click', ()=> {
+    play_pause();
+})
+
+function play_pause():void {
+    if(save_object.active_timer !== -1) {
+        if(is_timer_running === false) {
+            is_timer_running = true;
+            timer = setInterval(timeRunning,1000);
+        }else {
+            is_timer_running = false;
+            clearInterval(timer);
+
+        }
+    }
+}
+
+
+function timeRunning():void {
+    setInterval(() => {
+        const timers =  document.querySelectorAll('.focus-timer');
+        
+        const index = save_object.active_timer - 1;
+        save_object.sub_timers[index].elapsed_time++;
+        timers[index].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
+    }, 1000);
+} 
