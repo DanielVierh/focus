@@ -133,22 +133,21 @@ function play_pause():void {
     if(save_object.active_timer !== -1) {
         if(is_timer_running === false) {
             is_timer_running = true;
-            timer = setInterval(timeRunning,1000);
         }else {
             is_timer_running = false;
-            clearInterval(timer);
-
         }
     }
 }
 
 
-function timeRunning():void {
-    setInterval(() => {
+setInterval(() => {
+    if(is_timer_running === true) {
         const timers =  document.querySelectorAll('.focus-timer');
-        
         const index = save_object.active_timer - 1;
         save_object.sub_timers[index].elapsed_time++;
         timers[index].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
-    }, 1000);
-} 
+    }else {
+        clearInterval(timer);
+    }
+
+}, 1000);
