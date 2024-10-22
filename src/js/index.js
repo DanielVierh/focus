@@ -24,13 +24,21 @@ function init() {
 }
 init();
 btn_new_timer === null || btn_new_timer === void 0 ? void 0 : btn_new_timer.addEventListener('click', () => {
+    add_new_Timer();
+});
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        add_new_Timer();
+    }
+});
+function add_new_Timer() {
     if (inp_timer_title.value !== '') {
         timers.innerHTML = '';
         save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
         render_timer();
     }
-});
+}
 function render_timer() {
     save_object.sub_timers.forEach((timer, index) => {
         index++;

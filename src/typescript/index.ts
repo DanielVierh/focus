@@ -32,7 +32,6 @@ class Timer {
 
 
 function init(): void {
-    // save_object.sub_timers.push(new Timer('Test Timer', 60));
     render_timer();
     show_active();
 }
@@ -41,14 +40,23 @@ init();
 
 
 btn_new_timer?.addEventListener('click', ()=> {
+    add_new_Timer();
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        add_new_Timer();
+    }
+});
+
+function add_new_Timer():void {
     if(inp_timer_title.value !== '' ) {
         timers.innerHTML = '';
         save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
         render_timer();
     }
-});
-
+}
 
 function render_timer(): void {
     save_object.sub_timers.forEach((timer, index)=> {
@@ -75,6 +83,7 @@ function render_timer(): void {
         delete_btn.innerHTML = 'x';
         delete_btn.addEventListener('click', ()=> {
             console.log(index);
+            //TODO Delete Timer
             
         })
 
