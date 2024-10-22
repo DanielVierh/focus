@@ -2,6 +2,8 @@ const btn_new_timer = document.getElementById('btn_new_timer')!;
 const btn_play_pause = document.getElementById('btn_play_pause')!;
 const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_title'))
 const timers = (<HTMLInputElement>document.getElementById('timers'));
+const mainTimer = document.getElementById('mainTimer');
+
 let timer: any;
 let is_timer_running: boolean = false;
 
@@ -145,7 +147,8 @@ setInterval(() => {
         const timers =  document.querySelectorAll('.focus-timer');
         const index = save_object.active_timer - 1;
         save_object.sub_timers[index].elapsed_time++;
-        console.log(timers[index].children[1]);
+        save_object.main_timer++;
+        mainTimer!.innerHTML = convert_seconds_to_time(save_object.main_timer);
         timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
     }else {
         clearInterval(timer);
