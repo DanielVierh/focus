@@ -82,9 +82,7 @@ function render_timer(): void {
         delete_btn.classList.add('delete-button');
         delete_btn.innerHTML = 'x';
         delete_btn.addEventListener('click', ()=> {
-            console.log(index);
-            //TODO Delete Timer
-            
+            deleteTimer(index); //FIXME - 
         })
 
         timer_div.appendChild(timer_title);
@@ -94,6 +92,11 @@ function render_timer(): void {
         timers.appendChild(timer_div);
 
     })
+}
+
+function deleteTimer(index: number):void {
+    save_object.sub_timers.splice(index, 0);
+    render_timer();
 }
 
 function remove_active_class():void {
@@ -164,3 +167,8 @@ setInterval(() => {
     }
 
 }, 1000);
+
+
+//TODO Save Timer
+//TODO Reset Timer ?
+//TODO Timer with grid

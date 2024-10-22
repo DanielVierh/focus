@@ -59,13 +59,17 @@ function render_timer() {
         delete_btn.classList.add('delete-button');
         delete_btn.innerHTML = 'x';
         delete_btn.addEventListener('click', () => {
-            console.log(index);
+            deleteTimer(index);
         });
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
         timer_div.appendChild(delete_btn);
         timers.appendChild(timer_div);
     });
+}
+function deleteTimer(index) {
+    save_object.sub_timers.splice(index, 0);
+    render_timer();
 }
 function remove_active_class() {
     const timers = document.querySelectorAll('.focus-timer');

@@ -27,12 +27,21 @@ body {
 }
 .timer-wrapper .focus-timer {
   border: 1px solid black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   font-size: 1.2rem;
   padding: 0 0 0 10px;
   cursor: pointer;
+}
+.timer-wrapper .focus-timer .label {
+  width: 100%;
+  text-align: left;
+  border-right: 1px solid black;
+}
+.timer-wrapper .focus-timer .timer {
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
 }
 .timer-wrapper .focus-timer.active {
   background-color: lightgreen;
@@ -40,7 +49,7 @@ body {
 .timer-wrapper .delete-button {
   border: 1px solid black;
   height: 27px;
-  width: 27px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
