@@ -145,7 +145,8 @@ setInterval(() => {
         const timers =  document.querySelectorAll('.focus-timer');
         const index = save_object.active_timer - 1;
         save_object.sub_timers[index].elapsed_time++;
-        timers[index].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
+        console.log(timers[index].children[1]);
+        timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
     }else {
         clearInterval(timer);
     }
