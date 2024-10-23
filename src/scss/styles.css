@@ -25,6 +25,19 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.timer-wrapper .main-timer .run-pause {
+  border: 1px solid black;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.timer-wrapper .main-timer .run-pause:hover {
+  background-color: lightblue;
+}
 .timer-wrapper .focus-timer {
   border: 1px solid black;
   display: grid;

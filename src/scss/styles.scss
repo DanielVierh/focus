@@ -24,6 +24,21 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .run-pause {
+            border: 1px solid black;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all .4s ease-in-out;
+
+            &:hover {
+                background-color: lightblue;
+            }
+        }
     }
 
     .focus-timer {

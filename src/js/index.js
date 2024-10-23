@@ -1,6 +1,6 @@
 "use strict";
 const btn_new_timer = document.getElementById('btn_new_timer');
-const btn_play_pause = document.getElementById('btn_play_pause');
+const btn_run_pause = document.getElementById('btn_run_pause');
 const inp_timer_title = document.getElementById('inp_timer_title');
 const timers = document.getElementById('timers');
 const mainTimer = document.getElementById('mainTimer');
@@ -102,6 +102,7 @@ function load_local_storage() {
     if (localStorage.getItem('stored_focus') !== null) {
         try {
             save_object = JSON.parse(localStorage.getItem('stored_focus'));
+            mainTimer.innerHTML = convert_seconds_to_time(save_object.main_timer);
         }
         catch (error) {
             console.log(error);
@@ -111,16 +112,22 @@ function load_local_storage() {
 function save_into_storage() {
     localStorage.setItem('stored_focus', JSON.stringify(save_object));
 }
-btn_play_pause.addEventListener('click', () => {
-    play_pause();
+btn_run_pause.addEventListener('click', () => {
+    run_pause();
 });
-function play_pause() {
+function run_pause() {
     if (save_object.active_timer !== -1) {
         if (is_timer_running === false) {
             is_timer_running = true;
+            btn_run_pause.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+</svg>`;
         }
         else {
             is_timer_running = false;
+            btn_run_pause.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                    </svg>`;
         }
     }
 }
