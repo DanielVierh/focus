@@ -7,19 +7,20 @@
 body {
   font-family: sans-serif;
   text-align: center;
+  padding: 40px 0;
 }
 
 .timer-wrapper {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   width: 90%;
   max-width: 600px;
   margin: 50px auto;
+  box-shadow: 0 0 20px black;
+  border-radius: 8px;
 }
 .timer-wrapper .main-timer {
-  border: 1px solid black;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 1rem + 5vw, 3rem);
   padding: 0 10px;
   display: flex;
   justify-content: space-between;
@@ -31,7 +32,6 @@ body {
   align-items: center;
 }
 .timer-wrapper .main-timer .controls .run-pause, .timer-wrapper .main-timer .controls .refresh-main {
-  border: 1px solid black;
   height: 40px;
   width: 40px;
   display: flex;
@@ -45,7 +45,6 @@ body {
   background-color: lightblue;
 }
 .timer-wrapper .focus-timer {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   font-size: 1.2rem;
@@ -55,18 +54,19 @@ body {
 .timer-wrapper .focus-timer .label {
   width: 100%;
   text-align: left;
-  border-right: 1px solid black;
 }
 .timer-wrapper .focus-timer .timer {
   width: 100%;
   text-align: center;
-  border: 1px solid black;
 }
 .timer-wrapper .focus-timer.active {
-  background-color: lightgreen;
+  outline: 2px solid lightgreen;
+  font-weight: 700;
+}
+.timer-wrapper .focus-timer:nth-child(even) {
+  background-color: lightgray;
 }
 .timer-wrapper .delete-button {
-  border: 1px solid black;
   height: 27px;
   width: 100%;
   display: flex;
@@ -88,6 +88,16 @@ body {
   height: 100%;
   min-height: 40px;
   padding: 0 10px;
+  border: none;
+  border-radius: 0 0 8px 0;
+}
+.timer-wrapper .focus-add input[type=text] {
+  border-radius: 0 0 0 8px;
+}
+.timer-wrapper .focus-add input[type=submit] {
+  background-color: rgb(245, 245, 245);
+  width: 100%;
+  height: 100%;
 }
 .timer-wrapper .focus-add #btn_new_timer {
   cursor: pointer;

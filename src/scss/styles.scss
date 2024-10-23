@@ -7,19 +7,20 @@
 body {
     font-family: sans-serif;
     text-align: center;
+    padding: 40px 0;
 }
 
 .timer-wrapper {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     width: 90%;
     max-width: 600px;
     margin: 50px auto;
+    box-shadow: 0 0 20px black;
+    border-radius: 8px;
 
     .main-timer {
-        border: 1px solid black;
-        font-size: 3rem;
+        font-size: clamp(1.5rem, 1rem + 5vw, 3rem);
         padding: 0 10px;
         display: flex;
         justify-content: space-between;
@@ -31,7 +32,6 @@ body {
             align-items: center;
 
             .run-pause, .refresh-main {
-                border: 1px solid black;
                 height: 40px;
                 width: 40px;
                 display: flex;
@@ -51,7 +51,6 @@ body {
     }
 
     .focus-timer {
-        border: 1px solid black; 
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         font-size: 1.2rem;
@@ -61,21 +60,23 @@ body {
         .label {
             width: 100%;
             text-align: left;
-            border-right: 1px solid black;
         }
         .timer {
             width: 100%;
             text-align: center;
-            border: 1px solid black;
         }
 
         &.active {
-            background-color: lightgreen;
+            outline: 2px solid lightgreen;
+            font-weight: 700;
         }
     }
 
+    .focus-timer:nth-child(even) {
+        background-color: lightgray;
+    }
+
     .delete-button {
-        border: 1px solid black;
         height: 27px;
         width: 100%;
         display: flex;
@@ -100,6 +101,18 @@ body {
             height: 100%;
             min-height: 40px;
             padding: 0 10px;
+            border: none;
+            border-radius: 0 0 8px 0;
+        }
+
+        input[type=text] {
+            border-radius: 0 0 0 8px;
+        }
+
+        input[type=submit] {
+            background-color: rgb(245, 245, 245);
+            width: 100%;
+            height: 100%;
         }
 
         #btn_new_timer {
