@@ -46,8 +46,8 @@ body {
 }
 .timer-wrapper .focus-timer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  font-size: 1.2rem;
+  grid-template-columns: 1fr 1fr 40px 40px;
+  font-size: 1rem;
   padding: 0 0 0 10px;
   cursor: pointer;
 }
@@ -67,7 +67,7 @@ body {
   background-color: lightgray;
 }
 .timer-wrapper .delete-button {
-  height: 27px;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -76,6 +76,17 @@ body {
 }
 .timer-wrapper .delete-button:hover {
   background-color: lightcoral;
+}
+.timer-wrapper .refresh-button {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease-in-out;
+}
+.timer-wrapper .refresh-button:hover {
+  background-color: lightblue;
 }
 .timer-wrapper .focus-add {
   display: flex;

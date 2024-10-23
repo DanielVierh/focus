@@ -60,6 +60,15 @@ function render_timer() {
         let timer_time = document.createElement('div');
         timer_time.classList.add('timer');
         timer_time.innerHTML = convert_seconds_to_time(save_object.sub_timers[i].elapsed_time);
+        let refresh_btn = document.createElement('div');
+        refresh_btn.classList.add('refresh-button');
+        refresh_btn.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                    </svg>`;
+        refresh_btn.addEventListener('click', () => {
+            refreshTimer(i);
+        });
         let delete_btn = document.createElement('div');
         delete_btn.classList.add('delete-button');
         delete_btn.innerHTML = 'x';
@@ -68,6 +77,7 @@ function render_timer() {
         });
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
+        timer_div.appendChild(refresh_btn);
         timer_div.appendChild(delete_btn);
         timers.appendChild(timer_div);
     }
@@ -159,4 +169,13 @@ btn_refresh_main === null || btn_refresh_main === void 0 ? void 0 : btn_refresh_
         save_into_storage();
     }
 });
+function refreshTimer(index) {
+    const confirm = window.confirm('Soll der Timer zurückgesetzt werden?');
+    const timers = document.querySelectorAll('.focus-timer');
+    if (confirm) {
+        save_object.sub_timers[index].elapsed_time = 0;
+        timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
+        save_into_storage();
+    }
+}
 //# sourceMappingURL=index.js.map
