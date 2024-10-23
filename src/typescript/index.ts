@@ -39,7 +39,7 @@ function init(): void {
 init();
 
 
-btn_new_timer?.addEventListener('click', ()=> {
+btn_new_timer?.addEventListener('click', () => {
     add_new_Timer();
 });
 
@@ -49,8 +49,8 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-function add_new_Timer():void {
-    if(inp_timer_title.value !== '' ) {
+function add_new_Timer(): void {
+    if (inp_timer_title.value !== '') {
         timers.innerHTML = '';
         save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
@@ -59,60 +59,62 @@ function add_new_Timer():void {
 }
 
 function render_timer(): void {
-    save_object.sub_timers.forEach((timer, index)=> {
-        index++;
+    timers.innerHTML = '';
+
+    for (let i = 0; i < save_object.sub_timers.length; i++) {
+
         let timer_div = document.createElement('div');
         timer_div.classList.add('focus-timer');
-        timer_div.addEventListener('click', ()=> {
-            save_object.active_timer = index;
+        timer_div.addEventListener('click', () => {
+            save_object.active_timer = i;
             remove_active_class();
             timer_div.classList.add('active');
         });
 
         let timer_title = document.createElement('div');
         timer_title.classList.add('label');
-        timer_title.innerHTML = timer.title;
+        timer_title.innerHTML = save_object.sub_timers[i].title;
 
         let timer_time = document.createElement('div');
         timer_time.classList.add('timer');
-        timer_time.innerHTML = convert_seconds_to_time(timer.elapsed_time);
+        timer_time.innerHTML = convert_seconds_to_time(save_object.sub_timers[i].elapsed_time);
 
-        //TODO - Add delete btn with functionality
+        // Create delete button and its functionality
         let delete_btn = document.createElement('div');
         delete_btn.classList.add('delete-button');
         delete_btn.innerHTML = 'x';
-        delete_btn.addEventListener('click', ()=> {
-            deleteTimer(index); //FIXME - 
-        })
+        delete_btn.addEventListener('click', () => {
+            deleteTimer(i);
+        });
 
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
         timer_div.appendChild(delete_btn);
 
         timers.appendChild(timer_div);
-
-    })
+    }
 }
 
-function deleteTimer(index: number):void {
-    save_object.sub_timers.splice(index, 0);
-    render_timer();
+function deleteTimer(index: number): void {
+    save_object.sub_timers.splice(index, 1); 
+    render_timer(); 
 }
 
-function remove_active_class():void {
-   const timers =  document.querySelectorAll('.focus-timer');
-    timers.forEach((timer)=> {
+
+function remove_active_class(): void {
+    const timers = document.querySelectorAll('.focus-timer');
+    timers.forEach((timer) => {
         timer.classList.remove('active');
     })
 }
 
-function show_active():void {
-    const timers =  document.querySelectorAll('.focus-timer');
+function show_active(): void {
+    const timers = document.querySelectorAll('.focus-timer');
     try {
         timers[save_object.active_timer].classList.add('active')
     } catch (error) {
         console.log(error);
-        
+
     }
 
 }
@@ -132,22 +134,22 @@ function add_zero(val: number): string {
     let returnVal: string = '';
     if (val < 10) {
         returnVal = `0${val}`;
-    }else {
+    } else {
         returnVal = String(val)
     }
     return returnVal;
 }
 
 
-btn_play_pause.addEventListener('click', ()=> {
+btn_play_pause.addEventListener('click', () => {
     play_pause();
 })
 
-function play_pause():void {
-    if(save_object.active_timer !== -1) {
-        if(is_timer_running === false) {
+function play_pause(): void {
+    if (save_object.active_timer !== -1) {
+        if (is_timer_running === false) {
             is_timer_running = true;
-        }else {
+        } else {
             is_timer_running = false;
         }
     }
@@ -155,14 +157,14 @@ function play_pause():void {
 
 
 setInterval(() => {
-    if(is_timer_running === true) {
-        const timers =  document.querySelectorAll('.focus-timer');
-        const index = save_object.active_timer - 1;
+    if (is_timer_running === true) {
+        const timers = document.querySelectorAll('.focus-timer');
+        const index = save_object.active_timer;
         save_object.sub_timers[index].elapsed_time++;
         save_object.main_timer++;
         mainTimer!.innerHTML = convert_seconds_to_time(save_object.main_timer);
         timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
-    }else {
+    } else {
         clearInterval(timer);
     }
 

@@ -40,35 +40,35 @@ function add_new_Timer() {
     }
 }
 function render_timer() {
-    save_object.sub_timers.forEach((timer, index) => {
-        index++;
+    timers.innerHTML = '';
+    for (let i = 0; i < save_object.sub_timers.length; i++) {
         let timer_div = document.createElement('div');
         timer_div.classList.add('focus-timer');
         timer_div.addEventListener('click', () => {
-            save_object.active_timer = index;
+            save_object.active_timer = i;
             remove_active_class();
             timer_div.classList.add('active');
         });
         let timer_title = document.createElement('div');
         timer_title.classList.add('label');
-        timer_title.innerHTML = timer.title;
+        timer_title.innerHTML = save_object.sub_timers[i].title;
         let timer_time = document.createElement('div');
         timer_time.classList.add('timer');
-        timer_time.innerHTML = convert_seconds_to_time(timer.elapsed_time);
+        timer_time.innerHTML = convert_seconds_to_time(save_object.sub_timers[i].elapsed_time);
         let delete_btn = document.createElement('div');
         delete_btn.classList.add('delete-button');
         delete_btn.innerHTML = 'x';
         delete_btn.addEventListener('click', () => {
-            deleteTimer(index);
+            deleteTimer(i);
         });
         timer_div.appendChild(timer_title);
         timer_div.appendChild(timer_time);
         timer_div.appendChild(delete_btn);
         timers.appendChild(timer_div);
-    });
+    }
 }
 function deleteTimer(index) {
-    save_object.sub_timers.splice(index, 0);
+    save_object.sub_timers.splice(index, 1);
     render_timer();
 }
 function remove_active_class() {
@@ -119,7 +119,7 @@ function play_pause() {
 setInterval(() => {
     if (is_timer_running === true) {
         const timers = document.querySelectorAll('.focus-timer');
-        const index = save_object.active_timer - 1;
+        const index = save_object.active_timer;
         save_object.sub_timers[index].elapsed_time++;
         save_object.main_timer++;
         mainTimer.innerHTML = convert_seconds_to_time(save_object.main_timer);
