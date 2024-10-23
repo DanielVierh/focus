@@ -32,8 +32,11 @@ class Timer {
 
 
 function init(): void {
-    render_timer();
-    show_active();
+    load_local_storage();
+    setTimeout(() => {
+        render_timer();
+        show_active();
+    }, 400);
 }
 
 init();
@@ -54,6 +57,7 @@ function add_new_Timer(): void {
         timers.innerHTML = '';
         save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
+        save_into_storage();
         render_timer();
     }
 }
@@ -98,6 +102,7 @@ function render_timer(): void {
 function deleteTimer(index: number): void {
     save_object.sub_timers.splice(index, 1); 
     render_timer(); 
+    save_into_storage();
 }
 
 
@@ -130,14 +135,23 @@ function convert_seconds_to_time(seconds: number): string {
 }
 
 
-function add_zero(val: number): string {
-    let returnVal: string = '';
-    if (val < 10) {
-        returnVal = `0${val}`;
-    } else {
-        returnVal = String(val)
+function load_local_storage() {
+    if (localStorage.getItem('stored_focus') !== null) {
+        try {
+             //@ts-ignore
+            save_object = JSON.parse(localStorage.getItem('stored_focus'));
+        } catch (error) {
+            console.log(error);
+        }
     }
-    return returnVal;
+}
+
+//########################################
+//*ANCHOR -  Save to local Storage
+//########################################
+function save_into_storage() {
+     //@ts-ignore
+    localStorage.setItem('stored_focus', JSON.stringify(save_object));
 }
 
 
@@ -170,6 +184,10 @@ setInterval(() => {
 
 }, 1000);
 
+
+window.addEventListener("beforeunload", ()=> {
+    save_into_storage();
+ }, false);
 
 //TODO Save Timer
 //TODO Reset Timer ?

@@ -19,8 +19,11 @@ class Timer {
     }
 }
 function init() {
-    render_timer();
-    show_active();
+    load_local_storage();
+    setTimeout(() => {
+        render_timer();
+        show_active();
+    }, 400);
 }
 init();
 btn_new_timer === null || btn_new_timer === void 0 ? void 0 : btn_new_timer.addEventListener('click', () => {
@@ -36,6 +39,7 @@ function add_new_Timer() {
         timers.innerHTML = '';
         save_object.sub_timers.push(new Timer(inp_timer_title.value, 0));
         inp_timer_title.value = '';
+        save_into_storage();
         render_timer();
     }
 }
@@ -70,6 +74,7 @@ function render_timer() {
 function deleteTimer(index) {
     save_object.sub_timers.splice(index, 1);
     render_timer();
+    save_into_storage();
 }
 function remove_active_class() {
     const timers = document.querySelectorAll('.focus-timer');
@@ -93,15 +98,18 @@ function convert_seconds_to_time(seconds) {
     elapsed_time = date.toISOString().substr(11, 8);
     return elapsed_time;
 }
-function add_zero(val) {
-    let returnVal = '';
-    if (val < 10) {
-        returnVal = `0${val}`;
+function load_local_storage() {
+    if (localStorage.getItem('stored_focus') !== null) {
+        try {
+            save_object = JSON.parse(localStorage.getItem('stored_focus'));
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
-    else {
-        returnVal = String(val);
-    }
-    return returnVal;
+}
+function save_into_storage() {
+    localStorage.setItem('stored_focus', JSON.stringify(save_object));
 }
 btn_play_pause.addEventListener('click', () => {
     play_pause();
@@ -129,4 +137,7 @@ setInterval(() => {
         clearInterval(timer);
     }
 }, 1000);
+window.addEventListener("beforeunload", () => {
+    save_into_storage();
+}, false);
 //# sourceMappingURL=index.js.map
