@@ -25,7 +25,12 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.timer-wrapper .main-timer .run-pause {
+.timer-wrapper .main-timer .controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.timer-wrapper .main-timer .controls .run-pause, .timer-wrapper .main-timer .controls .refresh-main {
   border: 1px solid black;
   height: 40px;
   width: 40px;
@@ -34,8 +39,9 @@ body {
   align-items: center;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
+  margin-right: 5px;
 }
-.timer-wrapper .main-timer .run-pause:hover {
+.timer-wrapper .main-timer .controls .run-pause:hover, .timer-wrapper .main-timer .controls .refresh-main:hover {
   background-color: lightblue;
 }
 .timer-wrapper .focus-timer {

@@ -25,20 +25,29 @@ body {
         justify-content: space-between;
         align-items: center;
 
-        .run-pause {
-            border: 1px solid black;
-            height: 40px;
-            width: 40px;
+        .controls {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            cursor: pointer;
-            transition: all .4s ease-in-out;
 
-            &:hover {
-                background-color: lightblue;
+            .run-pause, .refresh-main {
+                border: 1px solid black;
+                height: 40px;
+                width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: all .4s ease-in-out;
+                margin-right: 5px;
+    
+                &:hover {
+                    background-color: lightblue;
+                }
             }
         }
+
+
     }
 
     .focus-timer {

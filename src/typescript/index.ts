@@ -3,6 +3,7 @@ const btn_run_pause = document.getElementById('btn_run_pause')!;
 const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_title'))
 const timers = (<HTMLInputElement>document.getElementById('timers'));
 const mainTimer = document.getElementById('mainTimer');
+const btn_refresh_main = document.getElementById('btn_refresh_main');
 
 let timer: any;
 let is_timer_running: boolean = false;
@@ -197,4 +198,13 @@ window.addEventListener("beforeunload", ()=> {
  }, false);
 
 
-//TODO Reset Timer ?
+//TODO Reset Timer 
+btn_refresh_main?.addEventListener('click', ()=> {
+    const confirm = window.confirm('Soll der Hauptzähler zurückgesetzt werden?');
+
+    if(confirm) {
+        save_object.main_timer = 0;
+        mainTimer!.innerHTML = convert_seconds_to_time(save_object.main_timer);
+        save_into_storage();
+    }
+})

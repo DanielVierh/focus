@@ -4,6 +4,7 @@ const btn_run_pause = document.getElementById('btn_run_pause');
 const inp_timer_title = document.getElementById('inp_timer_title');
 const timers = document.getElementById('timers');
 const mainTimer = document.getElementById('mainTimer');
+const btn_refresh_main = document.getElementById('btn_refresh_main');
 let timer;
 let is_timer_running = false;
 let save_object = {
@@ -147,4 +148,12 @@ setInterval(() => {
 window.addEventListener("beforeunload", () => {
     save_into_storage();
 }, false);
+btn_refresh_main === null || btn_refresh_main === void 0 ? void 0 : btn_refresh_main.addEventListener('click', () => {
+    const confirm = window.confirm('Soll der Hauptzähler zurückgesetzt werden?');
+    if (confirm) {
+        save_object.main_timer = 0;
+        mainTimer.innerHTML = convert_seconds_to_time(save_object.main_timer);
+        save_into_storage();
+    }
+});
 //# sourceMappingURL=index.js.map
