@@ -72,6 +72,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.4s ease-in-out;
+}
+.timer-wrapper .delete-button:hover {
+  background-color: lightcoral;
 }
 .timer-wrapper .focus-add {
   display: flex;

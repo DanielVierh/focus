@@ -73,9 +73,12 @@ function render_timer() {
     }
 }
 function deleteTimer(index) {
-    save_object.sub_timers.splice(index, 1);
-    render_timer();
-    save_into_storage();
+    const confirm = window.confirm('Soll der Timer gelöscht werden?');
+    if (confirm) {
+        save_object.sub_timers.splice(index, 1);
+        render_timer();
+        save_into_storage();
+    }
 }
 function remove_active_class() {
     const timers = document.querySelectorAll('.focus-timer');

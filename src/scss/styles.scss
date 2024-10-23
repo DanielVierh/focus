@@ -81,7 +81,11 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: all .4s ease-in-out;
 
+        &:hover {
+            background-color: lightcoral;
+        }
     }
 
     .focus-add {

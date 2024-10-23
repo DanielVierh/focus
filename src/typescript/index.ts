@@ -101,9 +101,14 @@ function render_timer(): void {
 }
 
 function deleteTimer(index: number): void {
-    save_object.sub_timers.splice(index, 1); 
-    render_timer(); 
-    save_into_storage();
+    const confirm = window.confirm('Soll der Timer gelöscht werden?');
+
+    if(confirm) {
+        save_object.sub_timers.splice(index, 1); 
+        render_timer(); 
+        save_into_storage();
+    }
+
 }
 
 
