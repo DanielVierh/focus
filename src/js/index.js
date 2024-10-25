@@ -5,6 +5,7 @@ const inp_timer_title = document.getElementById('inp_timer_title');
 const timers = document.getElementById('timers');
 const mainTimer = document.getElementById('mainTimer');
 const btn_refresh_main = document.getElementById('btn_refresh_main');
+const r = document.querySelector(':root');
 let timer;
 let is_timer_running = false;
 let save_object = {
@@ -191,5 +192,17 @@ function timers_sum() {
     }
     save_object.main_timer = seconds_sum;
     mainTimer.innerHTML = convert_seconds_to_time(seconds_sum);
+}
+class Theme {
+    static set_light_Theme() {
+        r.style.setProperty('--main-bg-color', 'rgba(5, 5, 5, 0.856)');
+        r.style.setProperty('--secondary-color', 'black');
+        r.style.setProperty('--tertiary-color', 'white');
+        r.style.setProperty('--shadow-color', 'white');
+        r.style.setProperty('--hover-color', 'lightblue');
+        r.style.setProperty('--selected-color', 'lightgreen');
+        r.style.setProperty('--button-hover-color', 'rgba(7, 174, 65, 0.854)');
+        r.style.setProperty('--button-color', 'rgba(199, 199, 199, 0.324)');
+    }
 }
 //# sourceMappingURL=index.js.map

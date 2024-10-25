@@ -4,6 +4,7 @@ const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_ti
 const timers = (<HTMLInputElement>document.getElementById('timers'));
 const mainTimer = document.getElementById('mainTimer');
 const btn_refresh_main = document.getElementById('btn_refresh_main');
+const r = (<HTMLInputElement>document.querySelector(':root'));
 
 let timer: any;
 let is_timer_running: boolean = false;
@@ -260,3 +261,55 @@ function timers_sum():void {
     save_object.main_timer = seconds_sum;
     mainTimer!.innerHTML = convert_seconds_to_time(seconds_sum);
 }
+
+
+
+
+class Theme {
+    static set_light_Theme() {
+        r!.style.setProperty('--main-bg-color', 'rgba(5, 5, 5, 0.856)');
+        r!.style.setProperty('--secondary-color', 'black');
+        r!.style.setProperty('--tertiary-color', 'white');
+        r!.style.setProperty('--shadow-color', 'white');
+        r!.style.setProperty('--hover-color', 'lightblue');
+        r!.style.setProperty('--selected-color', 'lightgreen');
+        r!.style.setProperty('--button-hover-color', 'rgba(7, 174, 65, 0.854)');
+        r!.style.setProperty('--button-color', 'rgba(199, 199, 199, 0.324)');
+    }
+}
+
+// theme_teal.addEventListener('click', ()=> {
+//     Theme.set_Teal_Theme();
+//     current_Theme = 'theme_teal';
+//     save_into_storage();
+// });
+
+// theme_dark.addEventListener('click', ()=> {
+//     Theme.set_dark_Theme();
+//     current_Theme = 'theme_dark';
+//     save_into_storage();
+// });
+
+// theme_white.addEventListener('click', ()=> {
+//     Theme.set_light_Theme();
+//     current_Theme = 'theme_white';
+//     save_into_storage();
+// });
+
+
+// function check_Theme() {
+//     switch (current_Theme) {
+//         case 'theme_teal':
+//             Theme.set_Teal_Theme();
+//             break;
+//         case 'theme_dark':
+//             Theme.set_dark_Theme();
+//             break;
+//         case 'theme_white':
+//             Theme.set_light_Theme();
+//             break;
+    
+//         default:
+//             break;
+//     }
+// }
