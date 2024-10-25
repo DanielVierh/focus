@@ -8,6 +8,7 @@
     --button-color: rgba(239, 243, 243, 0.324);
     --hover-color: lightblue;
     --button-hover-color: rgba(7, 174, 65, 0.854);
+    --selected-color: lightgreen;
 
     /* white color */
     --main-bg-color: white;
@@ -17,10 +18,21 @@
     --button-color: rgba(0, 252, 88, 0.324);
     --hover-color: lightblue;
     --button-hover-color: rgba(8, 219, 82, 0.854);
+    --selected-color: lightgreen;
+
+    /* teal color */
+    --main-bg-color: rgba(0, 0, 0, 0.9);
+    --secondary-color: aqua;
+    --tertiary-color: teal;
+    --shadow-color: teal;
+    --button-color: rgba(0, 252, 88, 0.324);
+    --hover-color: lightblue;
+    --button-hover-color: rgba(8, 219, 82, 0.854);
+    --selected-color: aqua;
 
     --hover-red: tomato;
     --hover-blue: rgb(4, 134, 177);
-    --selected-color: lightgreen;
+
 }
 
 * {
