@@ -22,6 +22,7 @@ let save_object: SAVE_OBJECT = {
     active_timer: -1
 }
 
+//*ANCHOR - class Timer
 class Timer {
     title: string
     elapsed_time: number
@@ -31,7 +32,7 @@ class Timer {
     }
 }
 
-
+//*ANCHOR - init
 function init(): void {
     load_local_storage();
     setTimeout(() => {
@@ -53,6 +54,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+//*ANCHOR - add_new_Timer
 function add_new_Timer(): void {
     if (inp_timer_title.value !== '') {
         timers.innerHTML = '';
@@ -63,6 +65,7 @@ function add_new_Timer(): void {
     }
 }
 
+//*ANCHOR - render_timer
 function render_timer(): void {
     timers.innerHTML = '';
 
@@ -111,6 +114,7 @@ function render_timer(): void {
     }
 }
 
+//*ANCHOR - deleteTimer
 function deleteTimer(index: number): void {
     const confirm = window.confirm('Soll der Timer gelöscht werden?');
 
@@ -141,6 +145,8 @@ function show_active(): void {
 
 }
 
+//*ANCHOR - convert_seconds_to_time
+
 function convert_seconds_to_time(seconds: number): string {
 
     let elapsed_time: string;
@@ -151,7 +157,7 @@ function convert_seconds_to_time(seconds: number): string {
     return elapsed_time;
 }
 
-
+//*ANCHOR - load_local_storage
 function load_local_storage() {
     if (localStorage.getItem('stored_focus') !== null) {
         try {
@@ -173,6 +179,7 @@ function save_into_storage() {
 }
 
 
+//*ANCHOR - Run or Pause 
 btn_run_pause.addEventListener('click', () => {
     run_pause();
 })
@@ -193,7 +200,7 @@ function run_pause(): void {
     }
 }
 
-
+//*ANCHOR - Interval
 setInterval(() => {
     if (is_timer_running === true) {
         const timers = document.querySelectorAll('.focus-timer');
@@ -214,7 +221,7 @@ window.addEventListener("beforeunload", ()=> {
  }, false);
 
 
-//TODO Reset Timer 
+//*ANCHOR - Reset Timer 
 btn_refresh_main?.addEventListener('click', ()=> {
     const confirm = window.confirm('Soll der Hauptzähler zurückgesetzt werden?');
 
@@ -226,7 +233,7 @@ btn_refresh_main?.addEventListener('click', ()=> {
 })
 
 
-//TODO Reset small Timer 
+//*ANCHOR -  Reset small Timer 
 function refreshTimer(index: number):void {
     const confirm = window.confirm('Soll der Timer zurückgesetzt werden?');
     const timers = document.querySelectorAll('.focus-timer');
@@ -236,3 +243,4 @@ function refreshTimer(index: number):void {
         save_into_storage();
     }
 }
+
