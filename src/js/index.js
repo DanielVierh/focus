@@ -87,6 +87,7 @@ function deleteTimer(index) {
     if (confirm) {
         save_object.sub_timers.splice(index, 1);
         render_timer();
+        timers_sum();
         save_into_storage();
     }
 }
@@ -150,9 +151,8 @@ setInterval(() => {
         const timers = document.querySelectorAll('.focus-timer');
         const index = save_object.active_timer;
         save_object.sub_timers[index].elapsed_time++;
-        save_object.main_timer++;
-        mainTimer.innerHTML = convert_seconds_to_time(save_object.main_timer);
         timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
+        timers_sum();
     }
     else {
         clearInterval(timer);
@@ -162,8 +162,13 @@ window.addEventListener("beforeunload", () => {
     save_into_storage();
 }, false);
 btn_refresh_main === null || btn_refresh_main === void 0 ? void 0 : btn_refresh_main.addEventListener('click', () => {
-    const confirm = window.confirm('Soll der Hauptzähler zurückgesetzt werden?');
+    const confirm = window.confirm('Sollen alle Timer zurückgesetzt werden?');
+    const timers = document.querySelectorAll('.focus-timer');
     if (confirm) {
+        for (let i = 0; i < save_object.sub_timers.length; i++) {
+            save_object.sub_timers[i].elapsed_time = 0;
+            timers[i].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[i].elapsed_time);
+        }
         save_object.main_timer = 0;
         mainTimer.innerHTML = convert_seconds_to_time(save_object.main_timer);
         save_into_storage();
@@ -175,7 +180,16 @@ function refreshTimer(index) {
     if (confirm) {
         save_object.sub_timers[index].elapsed_time = 0;
         timers[index].children[1].innerHTML = convert_seconds_to_time(save_object.sub_timers[index].elapsed_time);
+        timers_sum();
         save_into_storage();
     }
+}
+function timers_sum() {
+    let seconds_sum = 0;
+    for (let i = 0; i < save_object.sub_timers.length; i++) {
+        seconds_sum = seconds_sum += save_object.sub_timers[i].elapsed_time;
+    }
+    save_object.main_timer = seconds_sum;
+    mainTimer.innerHTML = convert_seconds_to_time(seconds_sum);
 }
 //# sourceMappingURL=index.js.map
