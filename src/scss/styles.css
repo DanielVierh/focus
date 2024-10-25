@@ -1,7 +1,7 @@
 :root {
   /* Darkmode */
   --main-bg-color: rgba(5, 5, 5, 0.856);
-  --secondary-color: white;
+  --secondary-color: rgb(255, 255, 255);
   --tertiary-color: grey;
   --shadow-color: white;
   --button-color: rgba(239, 243, 243, 0.324);
@@ -15,6 +15,9 @@
   --button-color: rgba(0, 252, 88, 0.324);
   --hover-color: lightblue;
   --button-hover-color: rgba(8, 219, 82, 0.854);
+  --hover-red: tomato;
+  --hover-blue: rgb(4, 134, 177);
+  --selected-color: lightgreen;
 }
 
 * {
@@ -28,6 +31,7 @@ body {
   text-align: center;
   padding: 40px 0;
   background-color: var(--main-bg-color);
+  color: var(--secondary-color);
 }
 
 .timer-wrapper {
@@ -64,7 +68,7 @@ body {
 }
 .timer-wrapper .main-timer .controls .run-pause:hover,
 .timer-wrapper .main-timer .controls .refresh-main:hover {
-  background-color: var(--hover-color);
+  background-color: var(--hover-blue);
 }
 .timer-wrapper .focus-timer {
   display: grid;
@@ -82,7 +86,7 @@ body {
   text-align: center;
 }
 .timer-wrapper .focus-timer.active {
-  outline: 2px solid lightgreen;
+  outline: 2px solid var(--selected-color);
   font-weight: 700;
 }
 .timer-wrapper .focus-timer:nth-child(even) {
@@ -97,7 +101,7 @@ body {
   transition: all 0.4s ease-in-out;
 }
 .timer-wrapper .delete-button:hover {
-  background-color: lightcoral;
+  background-color: var(--hover-red);
 }
 .timer-wrapper .refresh-button {
   height: 100%;
@@ -108,13 +112,14 @@ body {
   transition: all 0.4s ease-in-out;
 }
 .timer-wrapper .refresh-button:hover {
-  background-color: var(--tertiary-color);
+  background-color: var(--hover-blue);
 }
 .timer-wrapper .focus-add {
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 40px;
+  margin-top: 3px;
 }
 .timer-wrapper .focus-add input {
   width: 80%;

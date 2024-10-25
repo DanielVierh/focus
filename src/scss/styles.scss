@@ -2,7 +2,7 @@
 
     /* Darkmode */
     --main-bg-color: rgba(5, 5, 5, 0.856);
-    --secondary-color: white;
+    --secondary-color: rgb(255, 255, 255);
     --tertiary-color: grey;
     --shadow-color: white;
     --button-color: rgba(239, 243, 243, 0.324);
@@ -17,6 +17,10 @@
     --button-color: rgba(0, 252, 88, 0.324);
     --hover-color: lightblue;
     --button-hover-color: rgba(8, 219, 82, 0.854);
+
+    --hover-red: tomato;
+    --hover-blue: rgb(4, 134, 177);
+    --selected-color: lightgreen;
 }
 
 * {
@@ -30,6 +34,7 @@ body {
     text-align: center;
     padding: 40px 0;
     background-color: var(--main-bg-color);
+    color: var(--secondary-color);
 }
 
 .timer-wrapper {
@@ -65,7 +70,7 @@ body {
                 margin-right: 5px;
 
                 &:hover {
-                    background-color: var(--hover-color);
+                    background-color: var(--hover-blue);
                 }
             }
         }
@@ -91,7 +96,7 @@ body {
         }
 
         &.active {
-            outline: 2px solid lightgreen;
+            outline: 2px solid var(--selected-color);
             font-weight: 700;
         }
     }
@@ -109,7 +114,7 @@ body {
         transition: all .4s ease-in-out;
 
         &:hover {
-            background-color: lightcoral;
+            background-color: var(--hover-red);
         }
     }
 
@@ -122,7 +127,7 @@ body {
         transition: all .4s ease-in-out;
 
         &:hover {
-            background-color: var(--tertiary-color);
+            background-color: var(--hover-blue);
         }
     }
 
@@ -131,6 +136,7 @@ body {
         justify-content: space-between;
         align-items: center;
         min-height: 40px;
+        margin-top: 3px;
 
 
         input {
