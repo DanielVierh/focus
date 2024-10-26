@@ -1,31 +1,5 @@
 :root {
   /* Darkmode */
-  --main-bg-color: rgba(5, 5, 5, 0.856);
-  --secondary-color: rgb(255, 255, 255);
-  --tertiary-color: grey;
-  --shadow-color: white;
-  --button-color: rgba(239, 243, 243, 0.324);
-  --hover-color: lightblue;
-  --button-hover-color: rgba(7, 174, 65, 0.854);
-  --selected-color: lightgreen;
-  /* white color */
-  --main-bg-color: white;
-  --secondary-color: black;
-  --tertiary-color: rgb(232, 232, 232);
-  --shadow-color: black;
-  --button-color: rgba(0, 252, 88, 0.324);
-  --hover-color: lightblue;
-  --button-hover-color: rgba(8, 219, 82, 0.854);
-  --selected-color: lightgreen;
-  /* teal color */
-  --main-bg-color: rgba(0, 0, 0, 0.9);
-  --secondary-color: aqua;
-  --tertiary-color: teal;
-  --shadow-color: teal;
-  --button-color: rgba(0, 252, 88, 0.324);
-  --hover-color: lightblue;
-  --button-hover-color: rgba(8, 219, 82, 0.854);
-  --selected-color: aqua;
   --hover-red: tomato;
   --hover-blue: rgb(4, 134, 177);
 }
@@ -42,6 +16,81 @@ body {
   padding: 40px 0;
   background-color: var(--main-bg-color);
   color: var(--secondary-color);
+}
+
+.settings-button {
+  position: fixed;
+  top: 40px;
+  left: 50px;
+  cursor: pointer;
+}
+
+.modal-settings {
+  display: none;
+}
+.modal-settings.active {
+  display: block;
+  padding: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  color: white;
+}
+.modal-settings.active .close-button {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: red;
+  box-shadow: inset 0 0 13px white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.modal-settings.active h4 {
+  margin: 50px auto 20px auto;
+}
+.modal-settings.active .theme-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.modal-settings.active .theme-wrapper .theme-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+.modal-settings.active .theme-wrapper .theme-button.light {
+  background-color: white;
+  color: black;
+}
+.modal-settings.active .theme-wrapper .theme-button.dark {
+  background-color: black;
+  color: white;
+}
+.modal-settings.active .theme-wrapper .theme-button.teal {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: aqua;
+}
+.modal-settings.active .theme-wrapper .theme-button.red {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: red;
 }
 
 .timer-wrapper {

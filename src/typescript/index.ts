@@ -4,6 +4,13 @@ const inp_timer_title = (<HTMLInputElement>document.getElementById('inp_timer_ti
 const timers = (<HTMLInputElement>document.getElementById('timers'));
 const mainTimer = document.getElementById('mainTimer');
 const btn_refresh_main = document.getElementById('btn_refresh_main');
+const btn_open_settings = document.getElementById('btn_open_settings');
+const btn_x = document.getElementById('btn_x');
+const btn_theme_light = document.getElementById('btn_theme_light');
+const btn_theme_dark = document.getElementById('btn_theme_dark');
+const btn_theme_teal = document.getElementById('btn_theme_teal');
+const btn_theme_red = document.getElementById('btn_theme_red');
+const modal_settings = document.getElementById('modal_settings');
 const r = (<HTMLInputElement>document.querySelector(':root'));
 
 let timer: any;
@@ -39,7 +46,8 @@ function init(): void {
     setTimeout(() => {
         render_timer();
         show_active();
-    }, 400);
+        check_Theme();
+    }, 200);
 }
 
 init();
@@ -267,49 +275,97 @@ function timers_sum():void {
 
 class Theme {
     static set_light_Theme() {
-        r!.style.setProperty('--main-bg-color', 'rgba(5, 5, 5, 0.856)');
+        r!.style.setProperty('--main-bg-color', 'white');
         r!.style.setProperty('--secondary-color', 'black');
         r!.style.setProperty('--tertiary-color', 'white');
+        r!.style.setProperty('--shadow-color', 'black');
+        r!.style.setProperty('--hover-color', 'lightblue');
+        r!.style.setProperty('--selected-color', 'lightgreen');
+        r!.style.setProperty('--button-hover-color', 'lightblue');
+        r!.style.setProperty('--button-color', 'rgba(199, 199, 199, 0.324)');
+        r!.style.setProperty('--selected-color:', 'lightgreen');
+    }
+    static set_dark_Theme() {
+        r!.style.setProperty('--main-bg-color', 'rgba(5, 5, 5, 0.856)');
+        r!.style.setProperty('--secondary-color', 'rgb(255, 255, 255)');
+        r!.style.setProperty('--tertiary-color', 'grey');
         r!.style.setProperty('--shadow-color', 'white');
         r!.style.setProperty('--hover-color', 'lightblue');
         r!.style.setProperty('--selected-color', 'lightgreen');
         r!.style.setProperty('--button-hover-color', 'rgba(7, 174, 65, 0.854)');
-        r!.style.setProperty('--button-color', 'rgba(199, 199, 199, 0.324)');
+        r!.style.setProperty('--button-color', 'rgba(239, 243, 243, 0.324)');
+        r!.style.setProperty('--selected-color:', 'lightgreen');
+    }
+    static set_Teal_Theme() {
+        r!.style.setProperty('--main-bg-color', 'rgba(0, 0, 0, 0.9);');
+        r!.style.setProperty('--secondary-color', 'aqua');
+        r!.style.setProperty('--tertiary-color', 'teal');
+        r!.style.setProperty('--shadow-color', 'teal');
+        r!.style.setProperty('--hover-color', 'lightblue');
+        r!.style.setProperty('--selected-color', 'aqua');
+        r!.style.setProperty('--button-hover-color', 'rgba(8, 219, 82, 0.854)');
+        r!.style.setProperty('--button-color', 'rgba(0, 252, 88, 0.324)');
+    }
+    static set_Red_Theme() {
+        r!.style.setProperty('--main-bg-color', 'rgba(0, 0, 0, 0.9)');
+        r!.style.setProperty('--secondary-color', 'white');
+        r!.style.setProperty('--tertiary-color', 'rgba(44, 43, 43, 0.859)');
+        r!.style.setProperty('--shadow-color', 'tomato');
+        r!.style.setProperty('--hover-color', 'lightblue');
+        r!.style.setProperty('--selected-color', 'red');
+        r!.style.setProperty('--button-hover-color', 'rgba(219, 8, 8, 0.854)');
+        r!.style.setProperty('--button-color', 'darkred');
     }
 }
 
-// theme_teal.addEventListener('click', ()=> {
-//     Theme.set_Teal_Theme();
-//     current_Theme = 'theme_teal';
-//     save_into_storage();
-// });
+btn_open_settings?.addEventListener('click', ()=> {
+    modal_settings?.classList.add('active');
+});
 
-// theme_dark.addEventListener('click', ()=> {
-//     Theme.set_dark_Theme();
-//     current_Theme = 'theme_dark';
-//     save_into_storage();
-// });
+btn_x?.addEventListener('click', ()=> {
+    modal_settings?.classList.remove('active');
+})
 
-// theme_white.addEventListener('click', ()=> {
-//     Theme.set_light_Theme();
-//     current_Theme = 'theme_white';
-//     save_into_storage();
-// });
+btn_theme_teal!.addEventListener('click', ()=> {
+    Theme.set_Teal_Theme();
+    save_object.theme = 'theme_teal';
+    save_into_storage();
+});
+btn_theme_light!.addEventListener('click', ()=> {
+    Theme.set_light_Theme();
+    save_object.theme = 'theme_light';
+    save_into_storage();
+});
+btn_theme_dark!.addEventListener('click', ()=> {
+    Theme.set_dark_Theme();
+    save_object.theme = 'theme_dark';
+    save_into_storage();
+});
+btn_theme_red!.addEventListener('click', ()=> {
+    Theme.set_Red_Theme();
+    save_object.theme = 'theme_red';
+    save_into_storage();
+});
 
 
-// function check_Theme() {
-//     switch (current_Theme) {
-//         case 'theme_teal':
-//             Theme.set_Teal_Theme();
-//             break;
-//         case 'theme_dark':
-//             Theme.set_dark_Theme();
-//             break;
-//         case 'theme_white':
-//             Theme.set_light_Theme();
-//             break;
+
+
+function check_Theme() {
+    switch (save_object.theme) {
+        case 'theme_teal':
+            Theme.set_Teal_Theme();
+            break;
+        case 'theme_dark':
+            Theme.set_dark_Theme();
+            break;
+        case 'theme_light':
+            Theme.set_light_Theme();
+            break;
+        case 'theme_red':
+            Theme.set_Red_Theme();
+            break;
     
-//         default:
-//             break;
-//     }
-// }
+        default:
+            break;
+    }
+}
