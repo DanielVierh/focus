@@ -95,11 +95,11 @@ function render_timer() {
 function deleteTimer(index) {
     const confirm = window.confirm('Soll der Timer gelöscht werden?');
     if (confirm) {
+        run_pause();
         save_object.sub_timers.splice(index, 1);
-        render_timer();
-        timers_sum();
+        save_object.active_timer = -1;
         save_into_storage();
-        is_timer_running = false;
+        window.location.reload();
     }
 }
 function remove_active_class() {
@@ -110,6 +110,9 @@ function remove_active_class() {
 }
 function show_active() {
     const timers = document.querySelectorAll('.focus-timer');
+    if (save_object.active_timer === -1) {
+        return;
+    }
     try {
         timers[save_object.active_timer].classList.add('active');
     }
@@ -161,6 +164,9 @@ function run_pause() {
 let counter = 0;
 setInterval(() => {
     if (is_timer_running === true) {
+        if (save_object.active_timer === -1) {
+            return;
+        }
         counter++;
         if (counter === 60) {
             counter = 0;
