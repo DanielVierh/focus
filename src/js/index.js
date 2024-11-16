@@ -51,6 +51,7 @@ function add_new_Timer() {
         inp_timer_title.value = '';
         save_into_storage();
         render_timer();
+        show_active();
     }
 }
 function render_timer() {

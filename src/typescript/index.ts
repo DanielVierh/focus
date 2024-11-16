@@ -71,6 +71,7 @@ function add_new_Timer(): void {
         inp_timer_title.value = '';
         save_into_storage();
         render_timer();
+        show_active();
     }
 }
 
@@ -147,7 +148,7 @@ function remove_active_class(): void {
 function show_active(): void {
     const timers = document.querySelectorAll('.focus-timer');
     try {
-        timers[save_object.active_timer].classList.add('active')
+        timers[save_object.active_timer].classList.add('active');
     } catch (error) {
         console.log(error);
 
