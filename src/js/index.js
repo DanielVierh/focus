@@ -99,6 +99,7 @@ function deleteTimer(index) {
         render_timer();
         timers_sum();
         save_into_storage();
+        is_timer_running = false;
     }
 }
 function remove_active_class() {

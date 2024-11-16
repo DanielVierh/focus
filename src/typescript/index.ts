@@ -133,6 +133,7 @@ function deleteTimer(index: number): void {
         render_timer(); 
         timers_sum();
         save_into_storage();
+        is_timer_running = false;
     }
 
 }
