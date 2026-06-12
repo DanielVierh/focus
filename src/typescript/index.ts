@@ -12,6 +12,15 @@ const btn_theme_light = document.getElementById("btn_theme_light");
 const btn_theme_dark = document.getElementById("btn_theme_dark");
 const btn_theme_teal = document.getElementById("btn_theme_teal");
 const btn_theme_red = document.getElementById("btn_theme_red");
+const btn_pomodoro_minus = document.getElementById("btn_pomodoro_minus")!;
+const btn_pomodoro_plus = document.getElementById("btn_pomodoro_plus")!;
+const btn_pomodoro_toggle = document.getElementById("btn_pomodoro_toggle")!;
+const pomodoro_minutes_display = document.getElementById(
+  "pomodoro_minutes_display",
+)!;
+const pomodoro_timer_display = document.getElementById(
+  "pomodoro_timer_display",
+)!;
 const modal_settings = document.getElementById("modal_settings");
 const r = <HTMLInputElement>document.querySelector(":root");
 const STORAGE_KEY = "stored_focus";
@@ -27,6 +36,10 @@ type SAVE_OBJECT = {
   global_is_running: boolean;
   running_timer_index: number;
   running_started_at: number | null;
+  pomodoro_minutes: number;
+  pomodoro_remaining_seconds: number;
+  pomodoro_enabled: boolean;
+  pomodoro_last_tick_ts: number | null;
 };
 
 let save_object: SAVE_OBJECT = {
@@ -37,6 +50,10 @@ let save_object: SAVE_OBJECT = {
   global_is_running: false,
   running_timer_index: -1,
   running_started_at: null,
+  pomodoro_minutes: 25,
+  pomodoro_remaining_seconds: 1500,
+  pomodoro_enabled: false,
+  pomodoro_last_tick_ts: null,
 };
 
 //*ANCHOR - class Timer
@@ -131,6 +148,55 @@ function get_elapsed_seconds(timer: Timer): number {
   return Math.floor(elapsed_ms / 1000);
 }
 
+function reset_pomodoro_remaining_from_minutes(): void {
+  save_object.pomodoro_remaining_seconds = save_object.pomodoro_minutes * 60;
+}
+
+function render_pomodoro_controls(): void {
+  pomodoro_minutes_display.textContent = String(save_object.pomodoro_minutes);
+  pomodoro_timer_display.textContent = convert_seconds_to_time(
+    save_object.pomodoro_remaining_seconds,
+  );
+  btn_pomodoro_toggle.textContent = save_object.pomodoro_enabled
+    ? "Pomodoro mitlaufen: Ja"
+    : "Pomodoro mitlaufen: Nein";
+}
+
+function tick_pomodoro(now: number): void {
+  if (
+    !save_object.pomodoro_enabled ||
+    !is_timer_running ||
+    save_object.active_timer === -1
+  ) {
+    return;
+  }
+
+  if (save_object.pomodoro_last_tick_ts === null) {
+    save_object.pomodoro_last_tick_ts = now;
+    return;
+  }
+
+  const elapsed_seconds = Math.floor(
+    (now - save_object.pomodoro_last_tick_ts) / 1000,
+  );
+
+  if (elapsed_seconds <= 0) {
+    return;
+  }
+
+  save_object.pomodoro_remaining_seconds = Math.max(
+    0,
+    save_object.pomodoro_remaining_seconds - elapsed_seconds,
+  );
+  // Keep millisecond remainder to avoid drift on throttled intervals.
+  save_object.pomodoro_last_tick_ts += elapsed_seconds * 1000;
+
+  if (save_object.pomodoro_remaining_seconds === 0) {
+    save_object.pomodoro_enabled = false;
+    save_object.pomodoro_last_tick_ts = null;
+  }
+}
+
 function finalize_timer_session(
   index: number,
   ended_at: number = nowMs(),
@@ -189,8 +255,6 @@ function update_timer_displays(): void {
 
 //*ANCHOR - init
 function init(): void {
-  console.log("Test");
-
   load_local_storage();
   setTimeout(() => {
     render_timer();
@@ -198,6 +262,7 @@ function init(): void {
     check_Theme();
     update_run_pause_icon();
     timers_sum();
+    render_pomodoro_controls();
   }, 200);
 }
 
@@ -211,6 +276,63 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     add_new_Timer();
   }
+});
+
+btn_pomodoro_minus.addEventListener("click", () => {
+  if (save_object.pomodoro_minutes <= 1) {
+    return;
+  }
+
+  save_object.pomodoro_minutes--;
+  reset_pomodoro_remaining_from_minutes();
+  if (
+    save_object.pomodoro_enabled &&
+    is_timer_running &&
+    save_object.active_timer !== -1
+  ) {
+    save_object.pomodoro_last_tick_ts = nowMs();
+  } else {
+    save_object.pomodoro_last_tick_ts = null;
+  }
+  render_pomodoro_controls();
+  save_into_storage();
+});
+
+btn_pomodoro_plus.addEventListener("click", () => {
+  if (save_object.pomodoro_minutes >= 120) {
+    return;
+  }
+
+  save_object.pomodoro_minutes++;
+  reset_pomodoro_remaining_from_minutes();
+  if (
+    save_object.pomodoro_enabled &&
+    is_timer_running &&
+    save_object.active_timer !== -1
+  ) {
+    save_object.pomodoro_last_tick_ts = nowMs();
+  } else {
+    save_object.pomodoro_last_tick_ts = null;
+  }
+  render_pomodoro_controls();
+  save_into_storage();
+});
+
+btn_pomodoro_toggle.addEventListener("click", () => {
+  save_object.pomodoro_enabled = !save_object.pomodoro_enabled;
+
+  if (save_object.pomodoro_enabled) {
+    if (is_timer_running && save_object.active_timer !== -1) {
+      save_object.pomodoro_last_tick_ts = nowMs();
+    } else {
+      save_object.pomodoro_last_tick_ts = null;
+    }
+  } else {
+    save_object.pomodoro_last_tick_ts = null;
+  }
+
+  render_pomodoro_controls();
+  save_into_storage();
 });
 
 //*ANCHOR - add_new_Timer
@@ -373,6 +495,27 @@ function load_local_storage() {
       save_object.running_started_at = asFiniteNumber(
         loaded_data.running_started_at,
       );
+      save_object.pomodoro_minutes =
+        asFiniteNumber(loaded_data.pomodoro_minutes) ?? 25;
+      save_object.pomodoro_remaining_seconds =
+        asFiniteNumber(loaded_data.pomodoro_remaining_seconds) ??
+        save_object.pomodoro_minutes * 60;
+      save_object.pomodoro_enabled = asBoolean(loaded_data.pomodoro_enabled);
+      save_object.pomodoro_last_tick_ts = asFiniteNumber(
+        loaded_data.pomodoro_last_tick_ts,
+      );
+
+      if (
+        save_object.pomodoro_minutes < 1 ||
+        save_object.pomodoro_minutes > 120
+      ) {
+        save_object.pomodoro_minutes = 25;
+      }
+
+      if (save_object.pomodoro_remaining_seconds < 0) {
+        save_object.pomodoro_remaining_seconds =
+          save_object.pomodoro_minutes * 60;
+      }
 
       if (Array.isArray(loaded_data.sub_timers)) {
         save_object.sub_timers = loaded_data.sub_timers.map((timer: any) =>
@@ -431,6 +574,18 @@ function load_local_storage() {
         }
       }
 
+      if (
+        save_object.pomodoro_enabled &&
+        is_timer_running &&
+        save_object.active_timer !== -1
+      ) {
+        if (save_object.pomodoro_last_tick_ts === null) {
+          save_object.pomodoro_last_tick_ts = now;
+        }
+      } else {
+        save_object.pomodoro_last_tick_ts = null;
+      }
+
       // Ensure only the active timer can be in a running session.
       for (let i = 0; i < save_object.sub_timers.length; i++) {
         if (
@@ -453,7 +608,6 @@ function load_local_storage() {
 
       timers_sum();
       save_into_storage();
-      console.log("save_object", save_object);
     } catch (error) {
       console.log(error);
     }
@@ -473,6 +627,19 @@ function save_into_storage() {
     save_object.running_timer_index = -1;
     save_object.running_started_at = null;
   }
+
+  if (
+    save_object.pomodoro_enabled &&
+    is_timer_running &&
+    save_object.active_timer !== -1
+  ) {
+    if (save_object.pomodoro_last_tick_ts === null) {
+      save_object.pomodoro_last_tick_ts = nowMs();
+    }
+  } else {
+    save_object.pomodoro_last_tick_ts = null;
+  }
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(save_object));
 }
 
@@ -490,14 +657,19 @@ function run_pause(): void {
       start_timer_session(index, now);
       is_timer_running = true;
       save_object.global_is_running = true;
+      if (save_object.pomodoro_enabled) {
+        save_object.pomodoro_last_tick_ts = now;
+      }
     } else {
       finalize_timer_session(index, now);
       is_timer_running = false;
       save_object.global_is_running = false;
+      save_object.pomodoro_last_tick_ts = null;
     }
 
     update_run_pause_icon();
     timers_sum();
+    render_pomodoro_controls();
     save_into_storage();
   }
 }
@@ -509,6 +681,7 @@ setInterval(() => {
 
   if (is_timer_running) {
     const index = save_object.active_timer;
+    const now = nowMs();
 
     if (
       save_object.sub_timers[index] &&
@@ -517,13 +690,16 @@ setInterval(() => {
       start_timer_session(index);
     }
 
+    tick_pomodoro(now);
+
     update_timer_displays();
     timers_sum();
+    render_pomodoro_controls();
 
     // Persist periodically while running to reduce data-loss risk on abrupt closes.
     const active = save_object.sub_timers[index];
     const elapsed_running_seconds = active?.current_start_ts
-      ? Math.floor((nowMs() - active.current_start_ts) / 1000)
+      ? Math.floor((now - active.current_start_ts) / 1000)
       : 0;
 
     if (

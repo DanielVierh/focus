@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -11,61 +10,106 @@
     <meta name="apple-mobile-web-app-title" content="Focus" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Focus</title>
-    <link rel="stylesheet" href="src/scss/styles.css">
-</head>
+    <link rel="stylesheet" href="src/scss/styles.css" />
+  </head>
 
-<body>
-
+  <body>
     <h2>Focus</h2>
 
     <div id="btn_open_settings" class="settings-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
-            <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"/>
-        </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="25"
+        fill="currentColor"
+        class="bi bi-gear-wide-connected"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z"
+        />
+      </svg>
     </div>
 
     <div class="modal-settings" id="modal_settings">
-        <div id="btn_x" class="close-button">x</div>
-        <h4>Themes</h4>
-        <div class="theme-wrapper">
-            <div class="theme-button light" id="btn_theme_light">Light</div>
-            <div class="theme-button dark" id="btn_theme_dark">Dark</div>
-            <div class="theme-button teal" id="btn_theme_teal">Teal</div>
-            <div class="theme-button red" id="btn_theme_red">Red</div>
-            <!-- <div class="theme-button xxx">Theme</div> -->
+      <div id="btn_x" class="close-button">x</div>
+      <h4>Themes</h4>
+      <div class="theme-wrapper">
+        <div class="theme-button light" id="btn_theme_light">Light</div>
+        <div class="theme-button dark" id="btn_theme_dark">Dark</div>
+        <div class="theme-button teal" id="btn_theme_teal">Teal</div>
+        <div class="theme-button red" id="btn_theme_red">Red</div>
+        <!-- <div class="theme-button xxx">Theme</div> -->
+      </div>
+    </div>
+
+    <div class="pomodoro-bar" id="pomodoro_bar">
+      <button id="btn_pomodoro_minus" class="pomodoro-btn" type="button">
+        -
+      </button>
+      <div class="pomodoro-display">
+        <div id="pomodoro_minutes_display" class="pomodoro-minutes">25</div>
+        <div id="pomodoro_timer_display" class="pomodoro-countdown">
+          00:25:00
         </div>
+      </div>
+      <button id="btn_pomodoro_plus" class="pomodoro-btn" type="button">
+        +
+      </button>
+      <button id="btn_pomodoro_toggle" class="pomodoro-toggle" type="button">
+        Pomodoro mitlaufen: Nein
+      </button>
     </div>
 
     <div class="timer-wrapper">
-        <div class="main-timer">
-            <div class="controls">
-                <div class="run-pause" id="btn_run_pause">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-play-fill" viewBox="0 0 16 16">
-                        <path
-                            d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
-                    </svg>
-                </div>
-                <div id="btn_refresh_main" class="refresh-main">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
-                        <path
-                            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
-                    </svg>
-                </div>
-            </div>
-            <div id="mainTimer"></div>
+      <div class="main-timer">
+        <div class="controls">
+          <div class="run-pause" id="btn_run_pause">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-play-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"
+              />
+            </svg>
+          </div>
+          <div id="btn_refresh_main" class="refresh-main">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-clockwise"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+              />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"
+              />
+            </svg>
+          </div>
         </div>
-        <div id="timers">
-        </div>
-        <div class="focus-add">
-            <input type="text" placeholder="Neuen Fokus hinzufügen" id="inp_timer_title">
-            <input type="submit" id="btn_new_timer" value="Speichern">
-        </div>
+        <div id="mainTimer"></div>
+      </div>
+      <div id="timers"></div>
+      <div class="focus-add">
+        <input
+          type="text"
+          placeholder="Neuen Fokus hinzufügen"
+          id="inp_timer_title"
+        />
+        <input type="submit" id="btn_new_timer" value="Speichern" />
+      </div>
     </div>
 
     <script src="src/js/index.js"></script>
-</body>
-
+  </body>
 </html>
