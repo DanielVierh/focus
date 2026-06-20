@@ -14,6 +14,7 @@ const btn_theme_teal = document.getElementById("btn_theme_teal");
 const btn_theme_red = document.getElementById("btn_theme_red");
 const btn_pomodoro_minus = document.getElementById("btn_pomodoro_minus")!;
 const btn_pomodoro_plus = document.getElementById("btn_pomodoro_plus")!;
+const btn_pomodoro_reset = document.getElementById("btn_pomodoro_reset")!;
 const btn_pomodoro_toggle = document.getElementById("btn_pomodoro_toggle")!;
 const pomodoro_minutes_display = document.getElementById(
   "pomodoro_minutes_display",
@@ -232,6 +233,8 @@ function update_run_pause_icon(): void {
   <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
 </svg>`;
     return;
+  } else {
+    mainTimer!.classList.add("stoped-timer");
   }
 
   btn_run_pause.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
@@ -263,7 +266,6 @@ function init(): void {
     update_run_pause_icon();
     timers_sum();
     render_pomodoro_controls();
-    mainTimer!.classList.add("stoped-timer");
   }, 200);
 }
 
@@ -305,6 +307,22 @@ btn_pomodoro_plus.addEventListener("click", () => {
   }
 
   save_object.pomodoro_minutes++;
+  reset_pomodoro_remaining_from_minutes();
+  if (
+    save_object.pomodoro_enabled &&
+    is_timer_running &&
+    save_object.active_timer !== -1
+  ) {
+    save_object.pomodoro_last_tick_ts = nowMs();
+  } else {
+    save_object.pomodoro_last_tick_ts = null;
+  }
+  render_pomodoro_controls();
+  save_into_storage();
+});
+
+btn_pomodoro_reset.addEventListener("click", () => {
+  save_object.pomodoro_minutes = save_object.pomodoro_minutes;
   reset_pomodoro_remaining_from_minutes();
   if (
     save_object.pomodoro_enabled &&
