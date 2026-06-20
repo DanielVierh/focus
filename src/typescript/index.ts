@@ -158,9 +158,14 @@ function render_pomodoro_controls(): void {
   pomodoro_timer_display.textContent = convert_seconds_to_time(
     save_object.pomodoro_remaining_seconds,
   );
-  btn_pomodoro_toggle.textContent = save_object.pomodoro_enabled
-    ? "Pomodoro mitlaufen: Ja"
-    : "Pomodoro mitlaufen: Nein";
+
+  if (save_object.pomodoro_enabled) {
+    btn_pomodoro_toggle.classList.remove("stoped-running");
+    btn_pomodoro_toggle.textContent = "Pomodoro mitlaufen: Ja";
+  } else {
+    btn_pomodoro_toggle.classList.add("stoped-running");
+    btn_pomodoro_toggle.textContent = "Pomodoro mitlaufen: Nein";
+  }
 }
 
 function tick_pomodoro(now: number): void {
@@ -380,6 +385,12 @@ function render_timer(): void {
 
       const old_active = save_object.active_timer;
       const now = nowMs();
+      //TODO - pause pomodoro if running
+      console.log("Saveobj", save_object);
+      if (save_object.pomodoro_enabled === true) {
+        save_object.pomodoro_enabled = false;
+        btn_pomodoro_toggle.classList.add("stoped-running");
+      }
 
       if (old_active !== -1) {
         if (is_timer_running) {

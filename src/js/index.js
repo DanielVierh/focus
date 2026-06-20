@@ -100,9 +100,14 @@ function reset_pomodoro_remaining_from_minutes() {
 function render_pomodoro_controls() {
     pomodoro_minutes_display.textContent = String(save_object.pomodoro_minutes);
     pomodoro_timer_display.textContent = convert_seconds_to_time(save_object.pomodoro_remaining_seconds);
-    btn_pomodoro_toggle.textContent = save_object.pomodoro_enabled
-        ? "Pomodoro mitlaufen: Ja"
-        : "Pomodoro mitlaufen: Nein";
+    if (save_object.pomodoro_enabled) {
+        btn_pomodoro_toggle.classList.remove("stoped-running");
+        btn_pomodoro_toggle.textContent = "Pomodoro mitlaufen: Ja";
+    }
+    else {
+        btn_pomodoro_toggle.classList.add("stoped-running");
+        btn_pomodoro_toggle.textContent = "Pomodoro mitlaufen: Nein";
+    }
 }
 function tick_pomodoro(now) {
     if (!save_object.pomodoro_enabled ||
@@ -270,6 +275,11 @@ function render_timer() {
             }
             const old_active = save_object.active_timer;
             const now = nowMs();
+            console.log("Saveobj", save_object);
+            if (save_object.pomodoro_enabled === true) {
+                save_object.pomodoro_enabled = false;
+                btn_pomodoro_toggle.classList.add("stoped-running");
+            }
             if (old_active !== -1) {
                 if (is_timer_running) {
                     finalize_timer_session(old_active, now);

@@ -146,6 +146,9 @@ body {
 .pomodoro-bar .pomodoro-toggle:hover {
   background-color: var(--button-hover-color);
 }
+.pomodoro-bar .pomodoro-toggle.stoped-running {
+  background-color: red;
+}
 
 @media (max-width: 600px) {
   .pomodoro-bar {

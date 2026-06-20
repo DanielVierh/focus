@@ -196,6 +196,10 @@ body {
     &:hover {
       background-color: var(--button-hover-color);
     }
+
+    &.stoped-running {
+      background-color: red;
+    }
   }
 }
 
