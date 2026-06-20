@@ -263,6 +263,7 @@ function init(): void {
     update_run_pause_icon();
     timers_sum();
     render_pomodoro_controls();
+    mainTimer!.classList.add("stoped-timer");
   }, 200);
 }
 
