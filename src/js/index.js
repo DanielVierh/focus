@@ -109,6 +109,31 @@ function render_pomodoro_controls() {
         btn_pomodoro_toggle.textContent = "Pomodoro mitlaufen: Nein";
     }
 }
+pomodoro_minutes_display.addEventListener("click", () => {
+    const input_numb = window.prompt("Gebe die Anzahl an Fokus-Minuten ein.");
+    if (input_numb === null) {
+        return;
+    }
+    const parsed_minutes = Number.parseInt(input_numb.trim(), 10);
+    if (!Number.isInteger(parsed_minutes) ||
+        parsed_minutes < 1 ||
+        parsed_minutes > 120) {
+        window.alert("Bitte eine ganze Zahl zwischen 1 und 120 eingeben.");
+        return;
+    }
+    save_object.pomodoro_minutes = parsed_minutes;
+    reset_pomodoro_remaining_from_minutes();
+    if (save_object.pomodoro_enabled &&
+        is_timer_running &&
+        save_object.active_timer !== -1) {
+        save_object.pomodoro_last_tick_ts = nowMs();
+    }
+    else {
+        save_object.pomodoro_last_tick_ts = null;
+    }
+    render_pomodoro_controls();
+    save_into_storage();
+});
 function tick_pomodoro(now) {
     if (!save_object.pomodoro_enabled ||
         !is_timer_running ||
