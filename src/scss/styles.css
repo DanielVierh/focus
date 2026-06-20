@@ -37,7 +37,6 @@ body {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   color: white;
 }
@@ -163,7 +162,6 @@ body {
     min-height: 38px;
   }
 }
-
 .timer-wrapper {
   display: flex;
   flex-direction: column;
@@ -199,6 +197,9 @@ body {
 .timer-wrapper .main-timer .controls .run-pause:hover,
 .timer-wrapper .main-timer .controls .refresh-main:hover {
   background-color: var(--hover-blue);
+}
+.timer-wrapper .main-timer .stoped-timer {
+  color: red;
 }
 .timer-wrapper .focus-timer {
   display: grid;
@@ -260,10 +261,10 @@ body {
   border-radius: 0 0 8px 0;
   font-size: 16px;
 }
-.timer-wrapper .focus-add input[type="text"] {
+.timer-wrapper .focus-add input[type=text] {
   border-radius: 0 0 0 8px;
 }
-.timer-wrapper .focus-add input[type="submit"] {
+.timer-wrapper .focus-add input[type=submit] {
   background-color: var(--button-color);
   color: var(--secondary-color);
   font-weight: bold;
@@ -271,9 +272,9 @@ body {
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
-.timer-wrapper .focus-add input[type="submit"]:hover {
+.timer-wrapper .focus-add input[type=submit]:hover {
   background-color: var(--button-hover-color);
 }
 .timer-wrapper .focus-add #btn_new_timer {
   cursor: pointer;
-} /*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */

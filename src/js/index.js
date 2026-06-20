@@ -482,12 +482,14 @@ function run_pause() {
             start_timer_session(index, now);
             is_timer_running = true;
             save_object.global_is_running = true;
+            mainTimer.classList.remove("stoped-timer");
             if (save_object.pomodoro_enabled) {
                 save_object.pomodoro_last_tick_ts = now;
             }
         }
         else {
             finalize_timer_session(index, now);
+            mainTimer.classList.add("stoped-timer");
             is_timer_running = false;
             save_object.global_is_running = false;
             save_object.pomodoro_last_tick_ts = null;
